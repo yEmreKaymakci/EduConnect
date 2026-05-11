@@ -1,0 +1,63 @@
+# ===================== ENVIRONMENT =====================
+.env
+.env.local
+.env.*.local
+# .env.example is allowed (no secrets)
+
+# ===================== PYTHON =====================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+htmlcov/
+.coverage
+
+# ===================== NODE.JS =====================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.yarn/
+
+# ===================== NEXT.JS =====================
+frontend/.next/
+frontend/out/
+frontend/.vercel/
+
+# ===================== GOLANG =====================
+services/notification-service/notification-service
+services/notification-service/*.exe
+services/notification-service/tmp/
+
+# ===================== DOCKER =====================
+*.log
+docker-compose.override.yml
+
+# ===================== IDE =====================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.DS_Store
+Thumbs.db
+
+# ===================== UPLOADS =====================
+uploads/
+services/file-service/uploads/
+
+# ===================== PGADMIN =====================
+pgadmin_data/
+
+# ===================== MISC =====================
+*.bak
+*.tmp

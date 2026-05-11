@@ -1,0 +1,289 @@
+version: '3.9'
+
+services:
+  # ─────────────────────── INFRASTRUCTURE ───────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: educonnect-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/migrations:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - educonnect-net
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: educonnect-redis
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - educonnect-net
+    restart: unless-stopped
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: educonnect-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+    networks:
+      - educonnect-net
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: educonnect-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - educonnect-net
+    restart: unless-stopped
+
+  # ─────────────────────── MICROSERVICES ────────────────────────
+  auth-service:
+    build:
+      context: ./services/auth-service
+      dockerfile: Dockerfile
+    container_name: educonnect-auth
+    env_file: .env
+    environment:
+      SERVICE_PORT: 8001
+    ports:
+      - "8001:8001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    volumes:
+      - ./services/auth-service:/app
+    networks:
+      - educonnect-net
+    restart: on-failure
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8001/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  user-service:
+    build:
+      context: ./services/user-service
+      dockerfile: Dockerfile
+    container_name: educonnect-user
+    env_file: .env
+    environment:
+      SERVICE_PORT: 8002
+    ports:
+      - "8002:8002"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    volumes:
+      - ./services/user-service:/app
+    networks:
+      - educonnect-net
+    restart: on-failure
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8002/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  file-service:
+    build:
+      context: ./services/file-service
+      dockerfile: Dockerfile
+    container_name: educonnect-file
+    env_file: .env
+    environment:
+      SERVICE_PORT: 8003
+      UPLOAD_DIR: /uploads
+    ports:
+      - "8003:8003"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    volumes:
+      - ./services/file-service:/app
+      - uploads_data:/uploads
+    networks:
+      - educonnect-net
+    restart: unless-stopped
+
+  ai-service:
+    build:
+      context: ./services/ai-service
+      dockerfile: Dockerfile
+    container_name: educonnect-ai
+    env_file: .env
+    environment:
+      SERVICE_PORT: 8004
+      UPLOAD_DIR: /uploads
+    ports:
+      - "8004:8004"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    volumes:
+      - ./services/ai-service:/app
+      - uploads_data:/uploads
+    networks:
+      - educonnect-net
+    restart: unless-stopped
+
+  log-service:
+    build:
+      context: ./services/log-service
+      dockerfile: Dockerfile
+    container_name: educonnect-log
+    env_file: .env
+    environment:
+      PORT: 8005
+    ports:
+      - "8005:8005"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    volumes:
+      - ./services/log-service/src:/app/src
+    networks:
+      - educonnect-net
+    restart: unless-stopped
+
+  notification-service:
+    build:
+      context: ./services/notification-service
+      dockerfile: Dockerfile
+    container_name: educonnect-notification
+    env_file: .env
+    environment:
+      SERVICE_PORT: 8006
+    ports:
+      - "8006:8006"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - educonnect-net
+    restart: unless-stopped
+
+  # ─────────────────────── FRONTEND ─────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    container_name: educonnect-frontend
+    env_file: .env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - auth-service
+      - user-service
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    networks:
+      - educonnect-net
+    restart: on-failure
+
+  # ─────────────────────── RUST HEALTH SERVICE ──────────────────────
+  health-service:
+    build:
+      context: ./services/health-service
+      dockerfile: Dockerfile
+    container_name: educonnect-health
+    env_file: .env
+    environment:
+      SERVICE_PORT: 8007
+      AUTH_SERVICE_URL: http://auth-service:8001
+      USER_SERVICE_URL: http://user-service:8002
+      FILE_SERVICE_URL: http://file-service:8003
+      AI_SERVICE_URL: http://ai-service:8004
+      LOG_SERVICE_URL: http://log-service:8005
+      NOTIFICATION_SERVICE_URL: http://notification-service:8006
+    ports:
+      - "8007:8007"
+    depends_on:
+      - auth-service
+      - user-service
+      - file-service
+      - ai-service
+      - log-service
+      - notification-service
+    networks:
+      - educonnect-net
+    restart: on-failure
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O- http://localhost:8007/health || exit 1"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+
+# ─────────────────────── VOLUMES & NETWORKS ───────────────────────
+volumes:
+  postgres_data:
+  redis_data:
+  rabbitmq_data:
+  uploads_data:
+
+networks:
+  educonnect-net:
+    driver: bridge

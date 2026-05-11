@@ -1,0 +1,19 @@
+{
+  "name": "educonnect-log-service",
+  "version": "1.0.0",
+  "description": "EduConnect merkezi loglama servisi (RabbitMQ Consumer)",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.4",
+    "express": "^4.21.1",
+    "pg": "^8.13.1",
+    "winston": "^3.16.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}

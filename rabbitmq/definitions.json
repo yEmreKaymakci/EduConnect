@@ -1,0 +1,68 @@
+{
+  "users": [
+    {
+      "name": "educonnect_admin",
+      "password": "RabbitMQEduConnect2024",
+      "tags": "administrator"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "educonnect_admin",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "vhosts": [{"name": "/"}],
+  "exchanges": [
+    {
+      "name": "educonnect.direct",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false
+    },
+    {
+      "name": "educonnect.topic",
+      "vhost": "/",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false
+    },
+    {
+      "name": "educonnect.fanout",
+      "vhost": "/",
+      "type": "fanout",
+      "durable": true,
+      "auto_delete": false
+    }
+  ],
+  "queues": [
+    {"name": "user.created",        "vhost": "/", "durable": true, "auto_delete": false, "arguments": {}},
+    {"name": "user.updated",        "vhost": "/", "durable": true, "auto_delete": false, "arguments": {}},
+    {"name": "user.deleted",        "vhost": "/", "durable": true, "auto_delete": false, "arguments": {}},
+    {"name": "auth.login",          "vhost": "/", "durable": true, "auto_delete": false, "arguments": {}},
+    {"name": "file.uploaded",       "vhost": "/", "durable": true, "auto_delete": false, "arguments": {}},
+    {"name": "file.analyzed",       "vhost": "/", "durable": true, "auto_delete": false, "arguments": {}},
+    {"name": "internship.applied",  "vhost": "/", "durable": true, "auto_delete": false, "arguments": {}},
+    {"name": "internship.approved", "vhost": "/", "durable": true, "auto_delete": false, "arguments": {}},
+    {"name": "permission.changed",  "vhost": "/", "durable": true, "auto_delete": false, "arguments": {}},
+    {"name": "log.all",             "vhost": "/", "durable": true, "auto_delete": false, "arguments": {}},
+    {"name": "notification.rpc",    "vhost": "/", "durable": true, "auto_delete": false, "arguments": {}}
+  ],
+  "bindings": [
+    {"source": "educonnect.direct", "vhost": "/", "destination": "user.created",        "destination_type": "queue", "routing_key": "user.created",        "arguments": {}},
+    {"source": "educonnect.direct", "vhost": "/", "destination": "user.updated",        "destination_type": "queue", "routing_key": "user.updated",        "arguments": {}},
+    {"source": "educonnect.direct", "vhost": "/", "destination": "user.deleted",        "destination_type": "queue", "routing_key": "user.deleted",        "arguments": {}},
+    {"source": "educonnect.direct", "vhost": "/", "destination": "auth.login",          "destination_type": "queue", "routing_key": "auth.login",          "arguments": {}},
+    {"source": "educonnect.direct", "vhost": "/", "destination": "file.uploaded",       "destination_type": "queue", "routing_key": "file.uploaded",       "arguments": {}},
+    {"source": "educonnect.direct", "vhost": "/", "destination": "file.analyzed",       "destination_type": "queue", "routing_key": "file.analyzed",       "arguments": {}},
+    {"source": "educonnect.topic",  "vhost": "/", "destination": "internship.applied",  "destination_type": "queue", "routing_key": "internship.applied",  "arguments": {}},
+    {"source": "educonnect.topic",  "vhost": "/", "destination": "internship.approved", "destination_type": "queue", "routing_key": "internship.approved", "arguments": {}},
+    {"source": "educonnect.fanout", "vhost": "/", "destination": "permission.changed",  "destination_type": "queue", "routing_key": "",                    "arguments": {}},
+    {"source": "educonnect.topic",  "vhost": "/", "destination": "log.all",             "destination_type": "queue", "routing_key": "#",                   "arguments": {}},
+    {"source": "educonnect.direct", "vhost": "/", "destination": "notification.rpc",    "destination_type": "queue", "routing_key": "notification.rpc",    "arguments": {}}
+  ]
+}
