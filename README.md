@@ -164,6 +164,10 @@ curl -X POST http://localhost:8001/api/v1/auth/login \
 <img width="1918" height="913" alt="StudentCv" src="https://github.com/user-attachments/assets/a2c9ae37-1a88-4f38-bc67-6eaadb5e5104" />
 <br />
 
+<p><strong>Dosya Dönüştürme</strong></p>
+<img width="1918" height="908" alt="student_ai_files" src="https://github.com/user-attachments/assets/e4eb4577-b0ef-4064-b138-67aec30052ca" />
+<br />
+
 <p><strong>YZ Asistanı</strong></p>
 <img width="1918" height="892" alt="StudentAIAssistant" src="https://github.com/user-attachments/assets/e1e5dcda-67b3-40fe-907b-febc35b54a87" />
 <br />
