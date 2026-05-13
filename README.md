@@ -152,4 +152,73 @@ curl -X POST http://localhost:8001/api/v1/auth/login \
 | [İsim] | DevOps / Log & Notification |
 
 ---
-*EduConnect — Final Projesi 2024*
+## 📸 Proje Görselleri
+<br /><br />
+### 👥 Öğrenci Sayfaları
+<br />
+<p><strong>Dashboard</strong></p>
+<img width="1917" height="868" alt="StudentDashboard" src="https://github.com/user-attachments/assets/673b983e-f677-47b0-9ee2-c7a0d2af3d37" />
+<br />
+
+<p><strong>CV Analizi</strong></p>
+<img width="1918" height="913" alt="StudentCv" src="https://github.com/user-attachments/assets/a2c9ae37-1a88-4f38-bc67-6eaadb5e5104" />
+<br />
+
+<p><strong>Dosya Dönüştürme</strong></p>
+<img width="1918" height="908" alt="student_ai_files" src="https://github.com/user-attachments/assets/e4eb4577-b0ef-4064-b138-67aec30052ca" />
+<br />
+
+<p><strong>YZ Asistanı</strong></p>
+<img width="1918" height="892" alt="StudentAIAssistant" src="https://github.com/user-attachments/assets/e1e5dcda-67b3-40fe-907b-febc35b54a87" />
+<br />
+
+<p><strong>Projeler</strong></p>
+<img width="1918" height="877" alt="StudentPortfolio" src="https://github.com/user-attachments/assets/e4bbf207-5eaf-4b11-9166-59ecdb8d4faf" />
+<br />
+
+### 👥 Okul Yönetimi Sayfaları
+
+<p><strong>Dashboard</strong></p>
+<img width="1918" height="880" alt="SchoolDashboard" src="https://github.com/user-attachments/assets/8b3b9233-86fb-4d2f-8d17-14b40f2d9264" />
+<br />
+
+<p><strong>Öğrenciler</strong></p>
+<img width="1918" height="863" alt="SchoolStudents" src="https://github.com/user-attachments/assets/f6da8680-b3a1-4591-8330-0b7fa1349e4e" />
+<br />
+
+<p><strong>Stajlar</strong></p>
+<img width="1918" height="875" alt="School_Internships" src="https://github.com/user-attachments/assets/6a97ecb0-3866-4a75-870e-4aa116538bf8" />
+<br /><br />
+
+
+
+### 👥 İşletme Yönetimi Sayfaları
+<br />
+<p><strong>Dashboard</strong></p>
+<img width="1918" height="885" alt="BusinessDashboard" src="https://github.com/user-attachments/assets/ac51dec1-bc36-4f15-9d7d-317e529dbfb6" />
+<br />
+
+<p><strong>Stajyer Arama</strong></p>
+<img width="1918" height="886" alt="Business_InternSearch" src="https://github.com/user-attachments/assets/44b7115f-602d-4407-aa3a-0bfe3e2b943a" />
+<br />
+
+<p><strong>Staj İlanlarım</strong></p>
+<img width="1918" height="878" alt="BusinessListings" src="https://github.com/user-attachments/assets/d356eeff-902d-4104-a809-9aba616a0801" />
+<br /><br />
+
+
+### 👥 Supervisor Sayfaları
+<br />
+<p><strong>Dashboard</strong></p>
+<img width="1918" height="1078" alt="Supervisor_Dashboard" src="https://github.com/user-attachments/assets/92a38482-711d-46a1-9136-1a9cf5301852" />
+<br />
+
+<p><strong>İzin Yönetimi</strong></p>
+<img width="1917" height="932" alt="Supervisor_İzinYonetimi" src="https://github.com/user-attachments/assets/c1984006-3ef5-4e54-ae65-faa65215f719" />
+<br />
+
+<p><strong>Kullanıcı Yönetimi</strong></p>
+<img width="1918" height="971" alt="Supervisor_Kullanıcı_Yonetimi" src="https://github.com/user-attachments/assets/1aa347c9-2a8c-4a6f-97c6-00ff4c6fd7ec" />
+<br />
+
+*EduConnect*
