@@ -164,7 +164,9 @@ services:
       context: ./services/ai-service
       dockerfile: Dockerfile
     container_name: educonnect-ai
-    env_file: .env
+    env_file:
+      - .env
+      - .env.local
     environment:
       SERVICE_PORT: 8004
       UPLOAD_DIR: /uploads

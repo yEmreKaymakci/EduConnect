@@ -1,5 +1,4 @@
 # ===================== ENVIRONMENT =====================
-.env
 .env.local
 .env.*.local
 # .env.example is allowed (no secrets)
