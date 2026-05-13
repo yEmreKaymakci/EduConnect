@@ -15,9 +15,12 @@ Okulların stajyerlerini yönettiği, öğrencilerin yeteneklerini sergilediği 
 git clone https://github.com/KULLANICI_ADI/educonnect.git
 cd educonnect
 
-# 2. .env dosyasını oluştur
-cp .env.example .env
-# .env dosyasını aç ve değerleri doldur (Gemini API key dahil)
+# 2. Yapay Zeka (Gemini) API Anahtarını Ayarlama
+# Projede AI özelliklerinin çalışması için kök dizinde ".env.local" adında yeni bir dosya oluşturun.
+# İçerisine kendi API anahtarınızı şu formatta ekleyip kaydedin:
+# GEMINI_API_KEY=sizin_api_anahtariniz_buraya
+
+# Not: Diğer tüm veritabanı şifreleri ve ayarlar ".env" dosyasında hazır olarak gelmektedir.
 
 # 3. Sistemi başlat
 docker-compose up -d --build
