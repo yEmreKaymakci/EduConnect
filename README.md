@@ -40,6 +40,14 @@ docker-compose logs -f
 | 🐰 RabbitMQ UI | http://localhost:15672 |
 | 🗄️ PgAdmin | http://localhost:5050 |
 
+
+### Database Giriş Bilgileri (PgAdmin)
+
+|  |  |
+|--------|-----|
+| 🌐 Mail | admin@educonnect.com |
+| 🔐 Şifre | PgAdmin@2024! |
+
 ### Varsayılan Giriş Bilgileri (Seed Data)
 
 | Rol | Email | Şifre |
