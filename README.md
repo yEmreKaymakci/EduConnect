@@ -48,6 +48,18 @@ docker-compose logs -f
 | 🌐 Mail | admin@educonnect.com |
 | 🔐 Şifre | PgAdmin@2024! |
 
+### Diğer Şifreler 
+
+|  |  |
+|--------|-----|
+| POSTGRES_DB | educonnect |
+| POSTGRES_USER | educonnect_user |
+| POSTGRES_PASSWORD | EduConnect@2024! |
+| REDIS_PASSWORD | Redis@EduConnect2024 |
+| RABBITMQ_USER | educonnect_admin |
+| RABBITMQ_PASSWORD | RabbitMQEduConnect2024 |
+
+
 ### Varsayılan Giriş Bilgileri (Seed Data)
 
 | Rol | Email | Şifre |
