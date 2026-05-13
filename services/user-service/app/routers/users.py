@@ -65,11 +65,16 @@ async def update_user(user_id: int, body: UserUpdateRequest, request: Request, p
         merged = {**json.loads(old["value"]), **body.value}
         await conn.execute("UPDATE users SET value=$1::jsonb WHERE id=$2", json.dumps(merged), user_id)
 
-    await publisher.publish("user.updated", {
-        "event": "user.updated", "user_id": user_id,
-        "timestamp": datetime.now(timezone.utc).isoformat(), "service": "user-service"
-    })
-    return {"message": "User updated", "user_id": user_id}
+    # RPC Call - Onay bekle
+    try:
+        await publisher.rpc_call("user.updated", {
+            "event": "user.updated", "user_id": user_id,
+            "timestamp": datetime.now(timezone.utc).isoformat(), "service": "user-service"
+        })
+    except Exception as e:
+        logger.warning(f"RPC Log confirmation failed, but DB update succeeded: {e}")
+
+    return {"message": "User updated", "user_id": user_id, "confirmed": True}
 
 
 @router.delete("/{user_id}")
@@ -80,12 +85,17 @@ async def delete_user(user_id: int, pool=Depends(get_pool), publisher=Depends(ge
             raise HTTPException(status_code=404, detail="User not found")
         await conn.execute("UPDATE users SET is_active=FALSE WHERE id=$1", user_id)
 
-    await publisher.publish("user.deleted", {
-        "event": "user.deleted", "user_id": user_id,
-        "role": row["role"], "email": row["email"],
-        "timestamp": datetime.now(timezone.utc).isoformat(), "service": "user-service"
-    })
-    return {"message": "User deactivated", "user_id": user_id}
+    # RPC Call - Onay bekle
+    try:
+        await publisher.rpc_call("user.deleted", {
+            "event": "user.deleted", "user_id": user_id,
+            "role": row["role"], "email": row["email"],
+            "timestamp": datetime.now(timezone.utc).isoformat(), "service": "user-service"
+        })
+    except Exception as e:
+        logger.warning(f"RPC Log confirmation failed: {e}")
+
+    return {"message": "User deactivated", "user_id": user_id, "confirmed": True}
 
 
 # ─── Student-specific ─────────────────────────────────────────

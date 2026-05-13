@@ -85,6 +85,23 @@ async def get_file_info(file_id: int, pool=Depends(get_pool)):
     return {"file_id": row["id"], "status": row["status"], "info": json.loads(row["value"])}
 
 
+@router.get("/user/{user_id}")
+async def list_user_files(user_id: int, pool=Depends(get_pool)):
+    async with pool.acquire() as conn:
+        rows = await conn.fetch(
+            "SELECT id, status, value, created_at FROM files WHERE user_id = $1 ORDER BY created_at DESC",
+            user_id
+        )
+    return [
+        {
+            "id": r["id"],
+            "status": r["status"],
+            "info": json.loads(r["value"]),
+            "created_at": r["created_at"].isoformat()
+        } for r in rows
+    ]
+
+
 @router.delete("/{file_id}")
 async def delete_file(file_id: int, user_id: int, pool=Depends(get_pool)):
     async with pool.acquire() as conn:

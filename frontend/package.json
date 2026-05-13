@@ -16,7 +16,9 @@
     "lucide-react": "^0.468.0",
     "js-cookie": "^3.0.5",
     "react-hot-toast": "^2.4.1",
-    "recharts": "^2.13.3"
+    "recharts": "^2.13.3",
+    "grapesjs": "^0.21.13",
+    "@grapesjs/tailwind": "^1.0.3"
   },
   "devDependencies": {
     "@types/node": "^22",

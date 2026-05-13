@@ -17,6 +17,7 @@ const menuConfig = {
     { name: 'Dashboard', path: '/student', icon: LayoutDashboard },
     { name: 'CV & Profil', path: '/student/cv', icon: FileText },
     { name: 'YZ Asistanı', path: '/student/ai-assistant', icon: Bot },
+    { name: 'AI Dosya İşleme', path: '/student/ai-files', icon: Settings2 },
     { name: 'Projeler', path: '/student/portfolio', icon: Briefcase },
   ],
   school: [
