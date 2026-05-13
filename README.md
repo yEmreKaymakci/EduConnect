@@ -40,6 +40,26 @@ docker-compose logs -f
 | 🐰 RabbitMQ UI | http://localhost:15672 |
 | 🗄️ PgAdmin | http://localhost:5050 |
 
+
+### Database Giriş Bilgileri (PgAdmin)
+
+|  |  |
+|--------|-----|
+| 🌐 Mail | admin@educonnect.com |
+| 🔐 Şifre | PgAdmin@2024! |
+
+### Diğer Şifreler 
+
+|  |  |
+|--------|-----|
+| POSTGRES_DB | educonnect |
+| POSTGRES_USER | educonnect_user |
+| POSTGRES_PASSWORD | EduConnect@2024! |
+| REDIS_PASSWORD | Redis@EduConnect2024 |
+| RABBITMQ_USER | educonnect_admin |
+| RABBITMQ_PASSWORD | RabbitMQEduConnect2024 |
+
+
 ### Varsayılan Giriş Bilgileri (Seed Data)
 
 | Rol | Email | Şifre |
@@ -154,6 +174,20 @@ curl -X POST http://localhost:8001/api/v1/auth/login \
 ---
 ## 📸 Proje Görselleri
 <br /><br />
+### 👥 Giriş / Kayıt Sayfaları
+<br />
+<p><strong>Kayıt</strong></p>
+<img width="1912" height="867" alt="Register" src="https://github.com/user-attachments/assets/92877798-84a2-4553-b9e5-aa230d495921" />
+<br />
+
+<p><strong>Giriş</strong></p>
+<img width="1916" height="798" alt="Login1" src="https://github.com/user-attachments/assets/3da25424-5cc6-48d7-83ba-0bde7454f017" />
+<br />
+
+<p><strong>Giriş</strong></p>
+<img width="1918" height="863" alt="Login2" src="https://github.com/user-attachments/assets/4dac5453-eec0-4842-a21b-3ab9aa3d0524" />
+<br />
+
 ### 👥 Öğrenci Sayfaları
 <br />
 <p><strong>Dashboard</strong></p>
