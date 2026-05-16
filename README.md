@@ -215,6 +215,7 @@ curl -X POST http://localhost:8001/api/v1/auth/login \
 
 ### 👥 Okul Yönetimi Sayfaları
 
+<br />
 <p><strong>Dashboard</strong></p>
 <img width="1918" height="880" alt="SchoolDashboard" src="https://github.com/user-attachments/assets/8b3b9233-86fb-4d2f-8d17-14b40f2d9264" />
 <br />
@@ -256,6 +257,13 @@ curl -X POST http://localhost:8001/api/v1/auth/login \
 
 <p><strong>Kullanıcı Yönetimi</strong></p>
 <img width="1918" height="971" alt="Supervisor_Kullanıcı_Yonetimi" src="https://github.com/user-attachments/assets/1aa347c9-2a8c-4a6f-97c6-00ff4c6fd7ec" />
+<br />
+
+
+### 👥 Veritabanı
+<br />
+<p><strong>PgAdmin</strong></p>
+<img width="1918" height="892" alt="Database" src="https://github.com/user-attachments/assets/7593742b-eace-4f81-bcd5-f0e77491b691" />
 <br />
 
 *EduConnect*
